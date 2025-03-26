@@ -10,8 +10,11 @@
 @vite(['resources/css/app.scss','resources/js/app.js'])
 <body>
 
-<div id="app">
-<leaderboard-component :user="{{ json_encode(Auth::user()) }}"></leaderboard-component>
+    <div id="app">
+        <leaderboard-component 
+            :user="{{ json_encode(Auth::user()) }}" 
+            :leaderboard="{{ json_encode($leaderboard) }}">
+        </leaderboard-component>
     </div>
     <effect></effect>
 </body>

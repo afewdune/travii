@@ -21,8 +21,8 @@
     <div class="container mt-5">
       <h1>Leader Board</h1>
       <div style="height: 70vh;
-overflow-y: auto;
-position: relative;">
+                  overflow-y: auto;
+                  position: relative;">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -59,18 +59,26 @@ export default {
     user: {
       type: Object,
       required: true
+    },
+    leaderboard: {
+      type: Array,
+      required: true
     }
   },
-  data() {
-    return {
-      leaderboard: []
-    };
-  },
-  created() {
-    axios.get('/api/leaderboard').then(response => {
-      this.leaderboard = response.data;
-    });
-  },
+  // data() {
+  //   return {
+  //     leaderboard: []
+  //   };
+  // },
+  // created() {
+  //   axios.get('/api/leaderboard').then(response => {
+  //     this.leaderboard = response.data;
+
+  //     console.log(this.leaderboard); // ใช้ this.
+  //   }).catch(error => {
+  //     console.error('Error fetching leaderboard:', error);
+  //   });
+  // },
   methods: {
     navigateTo(path) {
       window.location.href = path;
