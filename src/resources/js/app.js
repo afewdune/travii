@@ -50,6 +50,9 @@ app.component('inventory-page', InventoryPage);
 import InventoryComponent from './components/InventoryComponent.vue';
 app.component('inventory-component', InventoryComponent);
 
+import LeaderBoardComponent from './components/LeaderBoardComponent.vue';
+app.component('leaderboard-component', LeaderBoardComponent);
+
 app.use(router);
 app.use(Toast);
 

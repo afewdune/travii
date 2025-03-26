@@ -1,0 +1,91 @@
+<template>
+  <div>
+    <a href="/"><img src="/storage/assets/logo.svg" alt="Logo" class="logo" width="130"></a>
+    <header class="d-flex justify-content-between align-items-center p-4">
+      <div>
+        <div class="dropdown ms-2">
+          <button class="dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/storage/assets/person.svg"> {{ user ? user.username : 'Guest' }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="userMenuButton">
+            <li><div v-if="!user" @click="navigateTo('/login')" class="">เข้าสู่ระบบ</div></li>
+            <li><div v-if="!user" @click="navigateTo('/register')" class="">สมัครสมาชิก</div></li>
+            <li><div v-if="user" @click="navigateTo('/inventory')">ถังเก็บปลา</div></li>
+            <li><div v-if="user" @click="logout" class="">ออกจากระบบ</div></li>
+            <li><div v-if="user && user.role === 'admin'" @click="navigateTo('/admin')" class="">เข้าหลังบ้าน</div></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="container mt-5">
+      <h1>Leader Board</h1>
+      <div style="height: 70vh;
+overflow-y: auto;
+position: relative;">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>อันดับ</th>
+            <th>Player Name</th>
+            <th>Total Worth</th>
+            <th>Top 3 Fish</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(player, index) in leaderboard" :key="index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ player.name }}</td>
+            <td>{{ player.total_worth }}</td>
+            <td>
+              <ul>
+                <li v-for="fish in player.top_fish" :key="fish.FishID">{{ fish.FishName }} ({{ fish.FishWorth }})</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  name: 'LeaderBoardComponent',
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      leaderboard: []
+    };
+  },
+  created() {
+    axios.get('/api/leaderboard').then(response => {
+      this.leaderboard = response.data;
+    });
+  },
+  methods: {
+    navigateTo(path) {
+      window.location.href = path;
+    },
+    logout() {
+      axios.post('/logout').then(() => {
+        window.location.href = '/login';
+      });
+    }
+  }
+};
+</script>
+
+<style scoped>
+.container {
+  text-align: center;
+}
+</style>

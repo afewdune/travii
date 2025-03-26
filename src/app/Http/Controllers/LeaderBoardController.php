@@ -27,6 +27,6 @@ class LeaderBoardController extends Controller
             ];
         });
 
-        return response()->json($leaderboard);
+        return view('leaderboard', ['leaderboard' => $leaderboard]);
     }
 }
