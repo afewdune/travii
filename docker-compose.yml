@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  apache:
+    container_name: apache
+    build:
+      context: .
+    ports:
+      - '8080:80'
+      - '5173:5173'
+    volumes:
+      - ./src:/var/www/travii
+      - ./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
+    networks:
+      - travii-network
+
+  mysql_db:
+    container_name: mysql_db
+    image: mysql:8.1
+    environment:
+      MYSQL_DATABASE: travii
+      MYSQL_ROOT_PASSWORD: root66
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    networks:
+      - travii-network
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin:latest
+    ports:
+      - 9001:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - travii-network
+
+networks:
+  travii-network:
+    external: true

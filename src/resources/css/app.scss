@@ -1,0 +1,355 @@
+@import 'bootstrap/scss/bootstrap';
+
+@font-face {
+    font-family: 'TravII Thai';
+    src: url('https://static.wixstatic.com/ufonts/fa5979_f6123820b59c467898b51f2bb0e3c891/woff2/file.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TravII Thai';
+    src: url('https://static.wixstatic.com/ufonts/fa5979_7aca2cd9284a4d9288cf5edd82e5eeeb/woff2/file.woff2') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TravII';
+    src: url('https://static.wixstatic.com/ufonts/251dff_711b85d479bd450a9a593d53b8d1d46c/woff2/file.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TravII';
+    src: url('https://static.wixstatic.com/ufonts/251dff_c0d59fb2c49340749b8f9c66481c3a80/woff2/file.woff2') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+:root{
+    --color: #000;
+}
+
+*{
+    font-family: 'TravII Thai', sans-serif;
+    border: 0;
+    outline: 0;
+    box-shadow: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    -webkit-user-select: none;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+a{
+    color: #000 !important;
+    text-decoration: none !important;
+}
+
+img{
+    max-width: 100%;
+}
+
+effect{
+    width: 100%;
+    height: 100vh;
+    background: url(https://i.imgur.com/h9YW3im.gif) center/500px;
+    position: absolute;
+    opacity: 0.04;
+    pointer-events: none;
+    left: 0px;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+}
+
+.logo{
+    transition: 1s ease-in-out;
+    position: absolute;
+    cursor: pointer;
+    right: 0;
+    top: 30px;
+    animation: slideRight 1s forwards;
+}
+
+.logo:hover{
+    filter: hue-rotate(340deg) saturate(10) brightness(2.5);
+}
+
+#userMenuButton{
+    .material-symbols-outlined{
+        font-size: 20px;
+    }
+    background-color: transparent;
+    outline: 0px solid #fff;
+    transition: .2s ease-in-out;
+    border-radius: 50px;
+    padding: 0 5px;
+    margin: 0 -5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.dropdown-menu li div{
+    padding: 4px 15px;
+}
+
+.dropdown-menu li div:hover{
+    background-color: #eee;
+    cursor: pointer;
+}
+
+#userMenuButton:hover{
+    background-color: rgba(0, 255, 251, 0.6);
+    outline: 5px solid rgba(0, 255, 251, 0.6);
+    cursor: pointer;
+}
+
+@keyframes slideRight {
+    from {
+        right: -20%;
+    }
+    to {
+        right: 0;
+    }
+}
+
+#viiBtn{
+    display: inline-flex;
+    padding: 12px 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 100px;
+    border: 1px solid #000;
+    background-color: transparent;
+    font-size: 16px;
+}
+
+#viismBtn{
+    display: inline-flex;
+    height: 50px;
+    width: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 1000px;
+    border: 1px solid #B5E0FF;
+    background-color: transparent;
+}
+
+.caught-background {
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+    top: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    left: 0;
+}
+
+.caught-background::before{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100vh;
+    background: radial-gradient(170% 170% at 50% 50%, rgba(0, 0, 0, 0.00) 28.5%, #A7FFF4 100%), linear-gradient(180deg, #191919 0%, #2C3949 100%);
+    animation: bgCaught 1s forwards;
+    opacity: 0;
+}
+
+.caught #viiBtn{
+    border-color: #fff;
+    color: #fff;
+}
+
+#fishTrigger{
+    animation: fishTrigger 1s forwards ease-in-out;
+    transform: translateY(40px);
+    opacity: 0;
+}
+
+@keyframes fishTrigger {
+    0% {
+        transform: translateY(40px);
+        scale: 0;
+        opacity: 0;
+    }
+    25% {
+        transform: translateY(40px);
+        scale: 1;
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(20px);
+        scale: 1.4;
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(25px);
+        scale: 1.3;
+        opacity: 1;
+    }
+}
+
+@keyframes bgCaught {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.caught img{
+    max-width: 500px;
+    animation: caughtFish 1.5s forwards cubic-bezier(.52,2.13,.03,.67);
+}
+
+@keyframes caughtFish {
+    from {
+        transform: scale(0) rotate(30deg);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.headerTxt{
+    font-size: 72px;
+    font-family: 'TravII', 'Travii Thai', sans-serif;
+}
+
+.normalTxt{
+    font-size: 20px;
+}
+
+.caught .normalTxt{
+    margin-top: 100px;
+}
+
+#fishRarity{
+    display: inline-flex;
+    padding: 4px 7px 0px 7px;
+    line-height: 130%;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    text-align: center;
+    font-family: TravII;
+    font-size: 15px;
+    font-weight: 700;
+}
+    .COMMON{
+        background: linear-gradient(270deg, #FFF 0%, #CACACA 100%);
+    }
+
+    .RARE{
+        background: linear-gradient(270deg, #BDFFDF 0%, #FFF 100%);
+    }
+
+    .SR{
+        background: linear-gradient(270deg, #FFFCBD 0%, #FFF 100%);
+    }
+
+    .SSR{
+        background: linear-gradient(270deg, #FFF 0%, #FFBACA 100%);
+    }
+
+    .NFT{
+        background: linear-gradient(270deg, #E2BDFF 0%, #FFF 100%);
+    }
+
+    .SPECIAL{
+        background: linear-gradient(270deg, #A2FFFF 0%, #FFF 100%);
+    }
+
+
+.waiting .rod{
+    height: 74vh;
+    aspect-ratio: 490/807;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+// @media screen and (max-width: 1670px){
+//     .waiting .rod{
+//         transform: translateX(133%);
+//     }
+    
+// }
+
+.waiting p{
+    font-size: 50px;
+    font-family: TravII;
+    margin-top: -50px;
+}
+
+.idle{
+    width: 100%;
+height: 100vh;
+position: absolute;
+left: 0;
+top: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+background: linear-gradient(180deg, #FEFFB2 0%, #FFF 34.94%, #FF4ECA 100%);
+}
+
+#dc1{
+    width: 864px;
+    height: 864px;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(61, 255, 61, 0.00) 46.5%, #3DFF3D 50%, rgba(61, 255, 61, 0.00) 78.5%);
+    position: absolute;
+    left: -10%;
+    bottom: -15%;
+}
+
+#homePage .logo{
+    width: 70%;
+    top: 120%;
+}
+
+
+
+#fishingBtn{
+    position: absolute;
+    bottom: 100px;
+    background: linear-gradient(160deg, yellow, rgb(255, 241, 214));
+    padding: 10px 40px;
+    font-size: 30px;
+    border-radius: 6px;
+    box-shadow: 0 10px 0 0 rgb(221, 177, 132);
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: fit-content;
+}
+
+#fishingBtn:hover{
+    background: linear-gradient(160deg, yellow, rgb(255, 241, 214));
+    box-shadow: 0 5px 0 0 rgb(221, 177, 132);
+    transform: translateY(5px);
+}
