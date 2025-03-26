@@ -11,8 +11,9 @@ class LeaderBoardController extends Controller
 {
     public function index()
     {
-        $leaderboard = FishRecord::select('FisherID', DB::raw('SUM(FishWorth) as total_worth'))
-            ->groupBy('FisherID')
+        $leaderboard = FishRecord::join('Fish', 'FishRecord.FishID', '=', 'Fish.FishID')
+            ->select('FishRecord.FisherID', DB::raw('SUM(Fish.FishWorth) as total_worth'))
+            ->groupBy('FishRecord.FisherID')
             ->orderBy('total_worth', 'desc')
             ->take(5)
             ->get();
@@ -21,7 +22,7 @@ class LeaderBoardController extends Controller
         $leaderboard = $leaderboard->map(function ($record) {
             $user = User::find($record->FisherID);
             return [
-                'name' => $user->name,
+                'name' => $user->username,
                 'total_worth' => $record->total_worth
             ];
         });
