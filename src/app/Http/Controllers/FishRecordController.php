@@ -16,6 +16,7 @@ class FishRecordController extends Controller
         try {
             $fishRecords = FishRecord::with('fish')
                 ->where('FisherID', Auth::id())
+                ->whereNull('FishSoldDate')
                 ->get();
 
             Log::debug('Fish records retrieved', ['fishRecords' => $fishRecords]);

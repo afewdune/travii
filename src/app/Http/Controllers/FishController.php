@@ -8,6 +8,7 @@ use App\Models\FishRecord;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Carbon\Carbon;
 
 class FishController extends Controller
 {
@@ -138,16 +139,26 @@ class FishController extends Controller
         $count = $request->input('count');
 
         // ค้นหา FishRecord ล่าสุดของผู้ใช้ที่มี FishID ตรงกับที่ส่งมา
-        $fishRecord = FishRecord::where('FishID', $fishId)
-                                ->where('FisherID', $user->id)
-                                ->orderBy('created_at', 'desc')
-                                ->first();
+        $fishRecord = FishRecord::join('Fish', 'FishRecord.FishID', '=', 'Fish.FishID')
+                                ->where('FishRecord.FishID', $fishId)
+                                ->where('FishRecord.FisherID', $user->id)
+                                ->orderBy('FishRecord.FishAdded', 'asc')
+                                ->take($count)
+                                ->get();
 
-        if ($fishRecord && $fishRecord->count >= $count) {
-            $fishRecord->count -= $count;
-            $fishRecord->save();
+        if ($fishRecord && count($fishRecord) >= $count) {
+            // collect FishID to update the fish that have been sold and collect the sum of coins
+            $sold_id = [];
+            $sum_coins = 0;
+            foreach ($fishRecord as $key => $value) {
+                $sold_id[] = $value->RecordID;
+                $sum_coins += $value->FishWorth;
+            }
+            // update the fish that have been sold by stamp date to those record
+            FishRecord::whereIn('RecordID', $sold_id)->update(['FishSoldDate' => Carbon::now()]);
 
-            $user->coin += $fishRecord->fish->FishWorth * $count;
+            // update user's coin
+            $user->coin += $sum_coins;
             $user->save();
 
             return response()->json(['user' => $user]);

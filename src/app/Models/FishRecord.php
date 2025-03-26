@@ -17,6 +17,7 @@ class FishRecord extends Model
         'FishAdded',
         'FishUpdated',
         'FishDeleted',
+        'FishSoldDate',
     ];
 
     public $timestamps = false;

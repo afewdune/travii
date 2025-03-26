@@ -101,6 +101,7 @@ export default {
           this.$emit('update-user', response.data.user);
           this.showConfirmModal = false;
           this.showDetails = false;
+          location.reload();
         })
         .catch(error => {
           console.error('Error selling fish:', error);
