@@ -26,7 +26,7 @@
     <div class="home container mt-5">
       <div v-if="localUser">
         <fishing-panic-component @status-change="handleStatusChange"></fishing-panic-component>
-        <inventory-component v-for="fish in fishList" :key="fish.FishID" :fish="fish" @update-user="updateUser"></inventory-component>
+        <!-- <inventory-component v-for="fish in fishList" :key="fish.FishID" :fish="fish" @update-user="updateUser"></inventory-component> -->
       </div>
       <div v-else>
         <a href="/login"><button id="fishingBtn"><b>เข้าสู่</b>ระบบ</button></a>
@@ -59,23 +59,23 @@ export default {
   data() {
     return {
       localUser: this.user,
-      user: {},
-      fishList: []
+      // user: {},
+      // fishList: []
     };
   },
   watch: {
-    user(newUser) {
-      this.localUser = newUser;
-    }
+    // user(newUser) {
+    //   this.localUser = newUser;
+    // }
   },
   created() {
-    axios.get('/api/user').then(response => {
-      this.user = response.data;
-    });
+    // axios.get('/api/user').then(response => {
+    //   this.user = response.data;
+    // });
 
-    axios.get('/api/fish').then(response => {
-      this.fishList = response.data;
-    });
+    // axios.get('/api/fish').then(response => {
+    //   this.fishList = response.data;
+    // });
   },
   methods: {
     async logout() {

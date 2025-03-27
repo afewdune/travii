@@ -142,6 +142,7 @@ class FishController extends Controller
         $fishRecord = FishRecord::join('Fish', 'FishRecord.FishID', '=', 'Fish.FishID')
                                 ->where('FishRecord.FishID', $fishId)
                                 ->where('FishRecord.FisherID', $user->id)
+                                ->whereNull('FishRecord.FishSoldDate')
                                 ->orderBy('FishRecord.FishAdded', 'asc')
                                 ->take($count)
                                 ->get();
