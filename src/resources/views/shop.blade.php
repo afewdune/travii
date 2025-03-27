@@ -8,7 +8,10 @@
 </head>
 <body id="traviiBG">
     <div id="app">
-        <shop-component :user="{{ json_encode(Auth::user()) }}"></shop-component>
+        <shop-component 
+            :user="{{ json_encode(Auth::user()) }}"
+            :rods="{{ json_encode($rods) }}">
+        </shop-component>
     </div>
 </body>
 </html>

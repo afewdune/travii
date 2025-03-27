@@ -11,15 +11,15 @@
         <div>
           <div class="dropdown ms-2" style="display: flex; gap: 10px;">
             <div class="coin"><button class="dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="/storage/assets/person.svg"> {{ localUser ? localUser.username : 'Guest' }}
+              <img src="/storage/assets/person.svg"> {{ user ? user.username : 'Guest' }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="userMenuButton">
-              <li><div v-if="!localUser" @click="navigateTo('/login')" class="">เข้าสู่ระบบ</div></li>
-              <li><div v-if="!localUser" @click="navigateTo('/register')" class="">สมัครสมาชิก</div></li>
-              <!-- <li><div v-if="localUser" @click="navigateTo('/inventory')">ถังเก็บปลา</div></li> -->
-              <li><div v-if="localUser" @click="logout" class="">ออกจากระบบ</div></li>
-              <li><div v-if="localUser && localUser.role === 'admin'" @click="navigateTo('/admin')" class="">เข้าหลังบ้าน</div></li>
-              <!-- <li><div v-if="localUser" @click="navigateTo('/leaderboard')">Leader Board</div></li> -->
+              <li><div v-if="!user" @click="navigateTo('/login')" class="">เข้าสู่ระบบ</div></li>
+              <li><div v-if="!user" @click="navigateTo('/register')" class="">สมัครสมาชิก</div></li>
+              <!-- <li><div v-if="user" @click="navigateTo('/inventory')">ถังเก็บปลา</div></li> -->
+              <li><div v-if="user" @click="logout" class="">ออกจากระบบ</div></li>
+              <li><div v-if="user && user.role === 'admin'" @click="navigateTo('/admin')" class="">เข้าหลังบ้าน</div></li>
+              <!-- <li><div v-if="user" @click="navigateTo('/leaderboard')">Leader Board</div></li> -->
             </ul></div>
             <div class="coin"><img src="/storage/assets/coin.png" width="24"> {{ user.coin }}</div>
           </div>
@@ -29,7 +29,7 @@
   <div class="container mt-5">
     <h1>Fishing Rod Shop</h1>
     <div class="row">
-      <div class="col-md-4 mb-4" v-for="rod in rods" :key="rod.id">
+      <div class="col-md-4 mb-4" v-for="rod in rods.data" :key="rod.id">
         <div class="card">
           <img :src="`/storage/${rod.image}`" class="card-img-top" :alt="rod.name">
           <div class="card-body">
@@ -55,22 +55,27 @@ export default {
     user: {
       type: Object,
       required: true
+    },
+    rods: {
+      type: Object,
+      required: true
     }
   },
   data() {
     return {
-      rods: []
+      // rods: [],
     };
   },
   created() {
-    this.fetchRods();
+    // this.fetchRods();
   },
   methods: {
-    fetchRods() {
-      axios.get('/api/rods').then(response => {
-        this.rods = response.data;
-      });
-    },
+    // fetchRods() {
+    //   axios.get('/api/rods').then(response => {
+    //     this.rods = response.data;
+    //   });
+    //   console.log(this.rods)
+    // },
     buyRod(rod) {
       axios.post('/api/rods/buy', { rod_id: rod.id })
         .then(response => {

@@ -10,6 +10,7 @@ use App\Http\Controllers\FishRecordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\RodController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\LeaderBoardController;
 
 Auth::routes();
@@ -72,9 +73,5 @@ Route::get('/api/fish/records', [FishRecordController::class, 'index'])->middlew
 Route::get('/leaderboard', [LeaderBoardController::class, 'index'])->name('leaderboard');
 Route::get('/api/leaderboard', [LeaderBoardController::class, 'index'])->name('leaderboard');
 
-Route::get('/shop', function () {
-    return view('shop'); // ชี้ไปยัง shop.blade.php
-});
-
-
-Route::post('/api/rods/buy', [RodController::class, 'buyRod'])->middleware('auth');
+Route::get('/shop', [ShopController::class, 'index'])->middleware('auth');
+Route::post('/api/rods/buy', [ShopController::class, 'buyRod'])->middleware('auth');
