@@ -58,7 +58,7 @@
                     </tr>
                   </tbody>
                 </table>
-                {{ $fishList->links() }}
+                <!-- {{ $fishList->links() }} -->
               </div>
             </div>
           </div>
