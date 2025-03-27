@@ -53,6 +53,9 @@ app.component('inventory-component', InventoryComponent);
 import LeaderBoardComponent from './components/LeaderBoardComponent.vue';
 app.component('leaderboard-component', LeaderBoardComponent);
 
+import ShopComponent from './components/ShopComponent.vue';
+app.component('shop-component', ShopComponent);
+
 app.use(router);
 app.use(Toast);
 

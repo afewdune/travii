@@ -52,15 +52,31 @@
 
       <div class="d-flex btn-btm" style="align-items: end;">
       <a href="/inventory"><div class="btn-container"><img src="/storage/assets/btnicon-1.png"> ถังเก็บปลา </div></a>
-      <a href="/inventory"><div class="btn-container"><img src="/storage/assets/btnicon-2.png"> ร้านค้า </div></a>
+      <a href="/shop"><div class="btn-container"><img src="/storage/assets/btnicon-2.png"> ร้านค้า </div></a>
       <a href="/leaderboard"><div class="btn-container"><img src="/storage/assets/btnicon-3.png"> ตารางอันดับ </div></a>
     </div>
-    <!-- <div class="rod"> <img src="/storage/assets/rod01.png" alt=""> เปลี่ยน</div> -->
-    <div class="rod">
-      <img :src="rodImage" alt="Fishing Rod">
-      เปลี่ยน
+    <div class="rod" @click="showRodSelection"> 
+      <img src="/storage/assets/rod01.png" alt=""> เปลี่ยน
     </div>
-      <div id="dc1"></div>
+
+    <div v-if="showRodModal" class="rod-modal">
+      <div class="modal-content">
+      <h3>เลือกเบ็ดตกปลา</h3>
+          <div v-if="user.rods && user.rods.length > 0">
+            <div class="rod-item" v-for="rod in user.rods" :key="rod.id" @click="selectRod(rod)">
+            <img :src="`/storage/${rod.image}`" :alt="rod.name" />
+            <p>{{ rod.name }}</p>
+            </div>
+          </div>
+          <div v-else>
+            <p>คุณยังไม่มีเบ็ดตกปลา</p>
+            <a href="/shop" class="btn">ไปที่ร้านค้า</a>
+          </div>
+      <button @click="closeRodModal" class="close-btn">ปิด</button>
+      </div>
+      </div>
+
+    <div id="dc1"></div>
     <button @click="startFishing" id="fishingBtn">เริ่ม<b>ตกปลา</b></button>
     </div>
   </div>
@@ -88,8 +104,7 @@ export default {
       initialGravitySpeed: 0.5,
       currentGravitySpeed: 0.5,
       user: {},
-      rodImage: '',
-      rodName: '',
+      showRodModal: false
     };
   },
   watch: {
@@ -113,7 +128,7 @@ export default {
   methods: {
     startFishing() {
       this.status = 'waiting';
-      this.countdown = Math.floor(Math.random() * 15) + 10;
+      this.countdown = 1; // Math.floor(Math.random() * 15) + 10;
       this.fishName = '';
       this.fishImage = '';
       this.fishRarity = '';
@@ -269,10 +284,6 @@ export default {
   created() {
     axios.get('/api/user').then(response => {
       this.user = response.data;
-      if (this.user.rod) {
-        this.rodImage = `/storage/${this.user.rod.image}`;
-        this.rodName = this.user.rod.name;
-      }
     });
   }
 };

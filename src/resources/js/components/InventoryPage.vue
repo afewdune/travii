@@ -2,7 +2,7 @@
     <div>
     <div class="d-flex btn-btm">
       <div class="btn-container"><img src="/storage/assets/btnicon-1.png" v-if="localUser" @click="navigateTo('/inventory')"> ถังเก็บปลา </div>
-      <div class="btn-container"><img src="/storage/assets/btnicon-2.png" v-if="localUser" @click="navigateTo('/inventory')"> ร้านค้า </div>
+      <div class="btn-container"><img src="/storage/assets/btnicon-2.png" v-if="localUser" @click="navigateTo('/shop')"> ร้านค้า </div>
       <div class="btn-container"><img src="/storage/assets/btnicon-3.png" v-if="localUser" @click="navigateTo('/leaderboard')"> ตารางอันดับ </div>
     </div>
     <div style="position: relative; z-index: 999;">

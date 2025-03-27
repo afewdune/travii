@@ -71,3 +71,10 @@ Route::get('/api/fish/records', [FishRecordController::class, 'index'])->middlew
 
 Route::get('/leaderboard', [LeaderBoardController::class, 'index'])->name('leaderboard');
 Route::get('/api/leaderboard', [LeaderBoardController::class, 'index'])->name('leaderboard');
+
+Route::get('/shop', function () {
+    return view('shop'); // ชี้ไปยัง shop.blade.php
+});
+
+
+Route::post('/api/rods/buy', [RodController::class, 'buyRod'])->middleware('auth');

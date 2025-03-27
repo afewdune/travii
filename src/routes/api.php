@@ -32,3 +32,5 @@ Route::middleware(['auth:sanctum', 'throttle:1000,1'])->get('/fish/records', [Fi
 
 Route::middleware(['auth:sanctum', 'throttle:1000,1'])->get('/admin', [AdminController::class, 'index']);
 Route::middleware(['auth:sanctum', 'throttle:1000,1'])->get('/fish', [FishController::class, 'index']);
+
+Route::get('/api/rods', [RodController::class, 'index']);
