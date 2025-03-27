@@ -105,7 +105,7 @@ export default {
       immortalTime: 5,
       initialGravitySpeed: 0.5,
       user: {},
-      showRodModal: false
+      showRodModal: false,
     };
   },
   watch: {
@@ -239,13 +239,18 @@ startMovingUp() {
 },
 
 applyGravity() {
+  if (this.gravityInterval) {
+    clearInterval(this.gravityInterval); 
+  }
+
   clearInterval(this.moveInterval); // หยุดการเคลื่อนที่จากปุ่ม
   this.gravityInterval = setInterval(() => {
     this.greenBarY += 2; // ใช้ความเร็วการตกลง 2 ทุกๆ 15ms
 
-    if (this.greenBarY > 400) {
+    if (this.greenBarY >= 400) {
       this.greenBarY = 400; // หยุดที่ตำแหน่งสุดท้ายที่ 400
       clearInterval(this.gravityInterval); // หยุด gravity เมื่อถึงตำแหน่งสุดท้าย
+      this.gravityInterval = null; 
     }
   }, 15); // เคลื่อนที่ลงทุก 15ms
 },
