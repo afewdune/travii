@@ -1,16 +1,15 @@
 <template>
   <div class="col-6 col-md-4 col-lg-3 mb-4">
-    <div class="card h-100 shadow-sm" @click="showDetails = true">
-      <img :src="`/storage/${fish.FishImage}`" class="card-img-top" :alt="fish.FishName">
-      <div class="card-body">
-        <h5 class="card-title">{{ fish.FishName }}</h5>
-        <p class="card-text">
-          <strong>ความแรร์:</strong> <span :class="`${fish.FishRarity}`" id="fishRarity">{{ fish.FishRarity }}</span><br>
+    <div class="d-flex fish-card" @click="showDetails = true" :class="`${fish.FishRarity}`">
+      <div class="fish-rarity"><span id="fishRarity">{{ fish.FishRarity }}</span></div>
+      <img :src="`/storage/${fish.FishImage}`" class="fish-incentory-img" :alt="fish.FishName">
+    
+        <!-- <h5 class="card-title">{{ fish.FishName }}</h5> -->
+          <!-- <strong>ความแรร์:</strong> <br>
           <strong>Worth:</strong> {{ fish.FishWorth }}<br>
           <strong>Token Worth:</strong> {{ fish.FishTokenWorth }}<br>
-          <strong>Count:</strong> {{ fish.count }}
-        </p>
-      </div>
+          <div class="fish-rarity" >{{ fish.FishRarity }}</div> -->
+          <div class="fish-count">{{ fish.count }}</div>
     </div>
     <div v-if="showDetails" class="modal" @click.self="showDetails = false">
       <div class="modal-dialog modal-dialog-centered">
@@ -127,7 +126,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(rgba(206, 255, 178, 0.9), rgba(255, 255, 255, 0.9) 34.94%, rgba(78, 143, 255, 0.9));
 }
 .modal-content {
   background-color: white;

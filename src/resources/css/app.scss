@@ -107,15 +107,14 @@ effect{
 }
 
 .dropdown-menu li div:hover{
-    background-color: #eee;
     cursor: pointer;
 }
 
-#userMenuButton:hover{
-    background-color: rgba(0, 255, 251, 0.6);
-    outline: 5px solid rgba(0, 255, 251, 0.6);
-    cursor: pointer;
-}
+// #userMenuButton:hover{
+//     background-color: rgba(0, 255, 251, 0.6);
+//     outline: 5px solid rgba(0, 255, 251, 0.6);
+//     cursor: pointer;
+// }
 
 @keyframes slideRight {
     from {
@@ -318,6 +317,10 @@ justify-content: center;
 background: linear-gradient(180deg, #FEFFB2 0%, #FFF 34.94%, #FF4ECA 100%);
 }
 
+#traviiBG{
+    background: linear-gradient(180deg, #ceffb2 0%, #FFF 34.94%, #4e8fff 100%);
+}
+
 #dc1{
     width: 864px;
     height: 864px;
@@ -346,10 +349,139 @@ background: linear-gradient(180deg, #FEFFB2 0%, #FFF 34.94%, #FF4ECA 100%);
     right: 0;
     margin: auto;
     width: fit-content;
+    z-index: 99999;
 }
 
 #fishingBtn:hover{
     background: linear-gradient(160deg, yellow, rgb(255, 241, 214));
     box-shadow: 0 5px 0 0 rgb(221, 177, 132);
     transform: translateY(5px);
+}
+
+.coin{
+    width: fit-content;
+    display: flex;
+    background: #fff;
+    border: 1px solid #aaa;
+    padding: 7px 17px 7px 12px;
+    gap: 8px;
+    align-items: center;
+    font-size: 16px;
+    color: #000;
+    font-weight: 400;
+    border-radius: 6px;
+    box-shadow: 0 1px 1px #ffffff inset;
+}
+
+.btn-btm{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    gap: 30px;
+    margin: 30px;
+}
+
+.btn-container{
+    border-radius: 6px;
+    width: fit-content;
+    font-size: 18px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+    align-items: center;
+    justify-content: end;
+    cursor: pointer;
+
+    img{
+        zoom: 50%;
+        transition: ease-in-out transform .2s;
+    }
+}
+
+.btn-container:hover img{
+    transform: scale(120%) translateY(-10px);
+}
+
+.rod{
+    border-radius: 5px;
+    border: 1px solid #AAA;
+    background: #FFF;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    z-index: 99999;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 2px;
+
+    img{
+        margin-bottom: -20px;
+    }
+}
+
+#traviiStorageScroll{
+    height: calc(100vh - 250px);
+overflow-y: scroll;
+-webkit-mask-image: linear-gradient(black 80%,transparent);
+}
+
+.fish-count{
+    position: absolute;
+right: 20px;
+bottom: 10px;
+font-size: 24px;
+}
+
+.fish-card{
+    border-radius: 10px; 
+    align-items: center; 
+    justify-content: center; 
+    aspect-ratio: 1/1;
+    box-shadow: 0 0 0px 1px inset #ddd;
+    position: relative;
+    padding: .5rem .5rem 40px;
+}
+
+.fish-rarity{
+    position: absolute;
+bottom: 15px;
+left: 15px;
+background-color: #fff;
+box-shadow: 0 0 0px 1px inset #ddd;
+}
+
+.fish-inventory-img{
+    width: auto;
+    zoom: 50%;
+}
+
+.fish-card.COMMON{
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), linear-gradient(56deg, #FFF 0%, #CACACA 100%);
+}
+
+.fish-card.RARE{
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), linear-gradient(56deg, #BDFFDF 0%, #FFF 100%);
+}
+
+.fish-card.SR{
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), linear-gradient(56deg, #FFFCBD 0%, #FFF 100%);
+}
+
+.fish-card.SSR{
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), linear-gradient(56deg, #FFF 0%, #FFBACA 100%);
+}
+
+.fish-card.NFT{
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), linear-gradient(56deg, #E2BDFF 0%, #FFF 100%);
+}
+
+.fish-card.SPECIAL{
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), linear-gradient(56deg, #A2FFFF 0%, #FFF 100%);
 }

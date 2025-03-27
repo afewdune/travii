@@ -18,7 +18,7 @@
       </div> -->
     </div>
     <div v-if="status === 'panic'" class="panic">
-      <p>ปลากำลังกินเบ็ด! ขยับแถบสีเขียวให้คลุมตัวปลา</p>
+      <h3>ปลากำลังกินเบ็ด! ขยับแถบสีเขียวให้คลุมตัวปลา</h3>
       <div style="display: flex; align-items: center; justify-content: center; width: fit-content; margin: auto; gap: 4px;">
         <div class="fishing-area">
         <div class="fish" :style="fishStyle"></div>
@@ -49,7 +49,14 @@
       <button @click="startFishing">ตกอีกครั้ง</button>
     </div>
     <div v-if="status === 'idle'" class="idle">
-      <div>{{ user.coin }}</div>
+
+      <div class="d-flex btn-btm" style="align-items: end;">
+      <a href="/inventory"><div class="btn-container"><img src="/storage/assets/btnicon-1.png"> ถังเก็บปลา </div></a>
+      <a href="/inventory"><div class="btn-container"><img src="/storage/assets/btnicon-2.png"> ร้านค้า </div></a>
+      <a href="/leaderboard"><div class="btn-container"><img src="/storage/assets/btnicon-3.png"> ตารางอันดับ </div></a>
+    </div>
+    <div class="rod"> <img src="/storage/assets/rod01.png" alt=""> เปลี่ยน</div>
+
       <div id="dc1"></div>
     <button @click="startFishing" id="fishingBtn">เริ่ม<b>ตกปลา</b></button>
     </div>

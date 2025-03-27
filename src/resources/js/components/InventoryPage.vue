@@ -1,26 +1,36 @@
 <template>
     <div>
-        <a href="/"><img src="/storage/assets/logo.svg" alt="Logo" class="logo" width="130"></a>
-        <header class="d-flex justify-content-between align-items-center p-4">
-            <div>
-                <div class="dropdown ms-2">
-                    <button class="dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/storage/assets/person.svg"> {{ localUser ? localUser.username : 'Guest' }}
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="userMenuButton">
-                        <li><div v-if="!localUser" @click="navigateTo('/login')" class="">เข้าสู่ระบบ</div></li>
-                        <li><div v-if="!localUser" @click="navigateTo('/register')" class="">สมัครสมาชิก</div></li>
-                        <li><div v-if="localUser" @click="navigateTo('/inventory')">ถังเก็บปลา</div></li>
-                        <li><div v-if="localUser" @click="logout" class="">ออกจากระบบ</div></li>
-                        <li><div v-if="localUser && localUser.role === 'admin'" @click="navigateTo('/admin')" class="">เข้าหลังบ้าน</div></li>
-                    </ul>
-                </div>
-            </div>
-        </header>
+    <div class="d-flex btn-btm">
+      <div class="btn-container"><img src="/storage/assets/btnicon-1.png" v-if="localUser" @click="navigateTo('/inventory')"> ถังเก็บปลา </div>
+      <div class="btn-container"><img src="/storage/assets/btnicon-2.png" v-if="localUser" @click="navigateTo('/inventory')"> ร้านค้า </div>
+      <div class="btn-container"><img src="/storage/assets/btnicon-3.png" v-if="localUser" @click="navigateTo('/leaderboard')"> ตารางอันดับ </div>
+    </div>
+    <div style="position: relative; z-index: 999;">
+      <a href="/" ref="logo" class="logo-container"><img src="/storage/assets/logo.svg" alt="Logo" class="logo" width="130"></a>
+      <header class="d-flex justify-content-between align-items-center p-4">
+        <div>
+          <div class="dropdown ms-2" style="display: flex; gap: 10px;">
+            <div class="coin"><button class="dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="/storage/assets/person.svg"> {{ localUser ? localUser.username : 'Guest' }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="userMenuButton">
+              <li><div v-if="!localUser" @click="navigateTo('/login')" class="">เข้าสู่ระบบ</div></li>
+              <li><div v-if="!localUser" @click="navigateTo('/register')" class="">สมัครสมาชิก</div></li>
+              <!-- <li><div v-if="localUser" @click="navigateTo('/inventory')">ถังเก็บปลา</div></li> -->
+              <li><div v-if="localUser" @click="logout" class="">ออกจากระบบ</div></li>
+              <li><div v-if="localUser && localUser.role === 'admin'" @click="navigateTo('/admin')" class="">เข้าหลังบ้าน</div></li>
+              <!-- <li><div v-if="localUser" @click="navigateTo('/leaderboard')">Leader Board</div></li> -->
+            </ul></div>
+            <div class="coin"><img src="/storage/assets/coin.png" width="24"> {{ user.coin }}</div>
+          </div>
+        </div>
+      </header>
 
-        <div class="container mt-5">
+    </div>
+
+        <div class="container mt-5" id="traviiStorageScroll">
             <h1>ถังเก็บปลา</h1>
-            {{ localUser.coin }}
+            <!-- {{ localUser.coin }} -->
             <div class="row">
                 <inventory-component v-for="fish in groupedFish" :key="fish.FishID" :fish="fish"></inventory-component>
             </div>

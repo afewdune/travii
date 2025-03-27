@@ -4,28 +4,28 @@
       <a href="/" ref="logo" class="logo-container"><img src="/storage/assets/logo.svg" alt="Logo" class="logo" width="130"></a>
       <header class="d-flex justify-content-between align-items-center p-4">
         <div>
-          <div class="dropdown ms-2">
-            <button class="dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="dropdown ms-2" style="display: flex; gap: 10px;">
+            <div class="coin"><button class="dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="/storage/assets/person.svg"> {{ localUser ? localUser.username : 'Guest' }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="userMenuButton">
               <li><div v-if="!localUser" @click="navigateTo('/login')" class="">เข้าสู่ระบบ</div></li>
               <li><div v-if="!localUser" @click="navigateTo('/register')" class="">สมัครสมาชิก</div></li>
-              <li><div v-if="localUser" @click="navigateTo('/inventory')">ถังเก็บปลา</div></li>
+              <!-- <li><div v-if="localUser" @click="navigateTo('/inventory')">ถังเก็บปลา</div></li> -->
               <li><div v-if="localUser" @click="logout" class="">ออกจากระบบ</div></li>
               <li><div v-if="localUser && localUser.role === 'admin'" @click="navigateTo('/admin')" class="">เข้าหลังบ้าน</div></li>
-              <li><div v-if="localUser" @click="navigateTo('/leaderboard')">Leader Board</div></li>
-            </ul>
+              <!-- <li><div v-if="localUser" @click="navigateTo('/leaderboard')">Leader Board</div></li> -->
+            </ul></div>
+            <div class="coin"><img src="/storage/assets/coin.png" width="24"> {{ user.coin }}</div>
           </div>
         </div>
       </header>
+
     </div>
 
     <div class="home container mt-5">
       <div v-if="localUser">
         <fishing-panic-component @status-change="handleStatusChange"></fishing-panic-component>
-        <h1>Welcome, {{ user.name }}</h1>
-        <p>Your current coin balance: {{ user.coin }}</p>
         <inventory-component v-for="fish in fishList" :key="fish.FishID" :fish="fish" @update-user="updateUser"></inventory-component>
       </div>
       <div v-else>

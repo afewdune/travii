@@ -12,7 +12,7 @@
 
     @vite(['resources/css/app.scss','resources/js/app.js'])
 </head>
-<body>
+<body id="traviiBG">
     <div id="app">
         <inventory-page :user="{{ json_encode(Auth::user()) }}"></inventory-page>
     </div>
