@@ -20,4 +20,14 @@ class Rod extends Model
         'chance_special',
         'image',
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'rod_id');
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(RodPurchase::class);
+    }
 }

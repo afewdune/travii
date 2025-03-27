@@ -55,8 +55,11 @@
       <a href="/inventory"><div class="btn-container"><img src="/storage/assets/btnicon-2.png"> ร้านค้า </div></a>
       <a href="/leaderboard"><div class="btn-container"><img src="/storage/assets/btnicon-3.png"> ตารางอันดับ </div></a>
     </div>
-    <div class="rod"> <img src="/storage/assets/rod01.png" alt=""> เปลี่ยน</div>
-
+    <!-- <div class="rod"> <img src="/storage/assets/rod01.png" alt=""> เปลี่ยน</div> -->
+    <div class="rod">
+      <img :src="rodImage" alt="Fishing Rod">
+      เปลี่ยน
+    </div>
       <div id="dc1"></div>
     <button @click="startFishing" id="fishingBtn">เริ่ม<b>ตกปลา</b></button>
     </div>
@@ -84,7 +87,9 @@ export default {
       immortalTime: 5,
       initialGravitySpeed: 0.5,
       currentGravitySpeed: 0.5,
-      user: {}
+      user: {},
+      rodImage: '',
+      rodName: '',
     };
   },
   watch: {
@@ -264,6 +269,10 @@ export default {
   created() {
     axios.get('/api/user').then(response => {
       this.user = response.data;
+      if (this.user.rod) {
+        this.rodImage = `/storage/${this.user.rod.image}`;
+        this.rodName = this.user.rod.name;
+      }
     });
   }
 };

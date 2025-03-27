@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function rod()
+    {
+        return $this->belongsTo(Rod::class, 'rod_id');
+    }
+
+    public function rodPurchases()
+    {
+        return $this->hasMany(RodPurchase::class);
+    }
 }

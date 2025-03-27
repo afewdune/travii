@@ -40,22 +40,28 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Chance Common</th>
-                                <th>Chance Rare</th>
-                                <th>Chance SR</th>
-                                <th>Chance SSR</th>
-                                <th>Chance NFT</th>
-                                <th>Chance Special</th>
-                                <th>Actions</th>
+                                <th>รูปภาพ</th>
+                                <th>ชื่อเบ็ด</th>
+                                <th>ราคา</th>
+                                <th>โอกาส Common</th>
+                                <th>โอกาส Rare</th>
+                                <th>โอกาส SR</th>
+                                <th>โอกาส SSR</th>
+                                <th>โอกาส NFT</th>
+                                <th>โอกาส Special</th>
+                                <th> </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($rods as $rod)
                                 <tr>
-                                    <td>{{ $rod->image }}</td>
+                                    <td>
+                                    @if($rod->image)
+                                                <img src="{{ asset('storage/' . $rod->image) }}" width="100">
+                                            @else
+                                                No Image
+                                            @endif
+                                    </td>
                                     <td>{{ $rod->name }}</td>
                                     <td>{{ $rod->price }}</td>
                                     <td>{{ $rod->chance_common }}</td>
