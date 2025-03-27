@@ -76,6 +76,8 @@
       </div>
       </div>
 
+      <bubble-component></bubble-component>
+
     <div id="dc1"></div>
     <button @click="startFishing" id="fishingBtn">เริ่ม<b>ตกปลา</b></button>
     </div>
@@ -102,7 +104,6 @@ export default {
       speedChangeInterval: null,
       immortalTime: 5,
       initialGravitySpeed: 0.5,
-      currentGravitySpeed: 0.5,
       user: {},
       showRodModal: false
     };
@@ -154,64 +155,121 @@ export default {
       this.applyGravity();
       this.changeFishSpeed();
     },
-    moveFish() {
-      this.fishInterval = setInterval(() => {
-      this.fishY += (Math.random() - 0.5) * 200;
-      if (this.fishY < 0) this.fishY = 0;
-      if (this.fishY > 450) this.fishY = 450;
-      }, 50); // Reduced interval time for faster movement
-    },
-    changeFishSpeed() {
-      this.speedChangeInterval = setInterval(() => {
-        clearInterval(this.fishInterval);
-        const newSpeed = Math.random() * 100;
-        const fastMove = Math.random() < 0.2;
-        if (fastMove) {
-          this.fishInterval = setInterval(() => {
-            this.fishY = Math.random() * 400;
-          }, 400);
-        } else {
-          this.fishInterval = setInterval(() => {
-            this.fishY += (Math.random() - 0.5) * 20;
-            if (this.fishY < 0) this.fishY = 0;
-            if (this.fishY > 450) this.fishY = 450;
-          }, newSpeed);
-        }
-      }, 500);
-    },
-    startMovingUp() {
-      clearInterval(this.gravityInterval); // Stop gravity when user starts moving up
-      this.currentGravitySpeed = this.initialGravitySpeed; // Reset gravity speed
-      let speed = 1.5;
-      this.moveInterval = setInterval(() => {
-      this.greenBarY -= speed;
-      if (this.greenBarY < 0) this.greenBarY = 0;
-      speed += 0.1; // Increase speed over time
-      }, 15);
-    },
-    applyGravity() {
-      clearInterval(this.moveInterval);
-      this.gravityInterval = setInterval(() => {
-      this.greenBarY += this.currentGravitySpeed;
-      if (this.greenBarY > 400) this.greenBarY = 400;
-      this.currentGravitySpeed *= 1.01; // Increase speed exponentially
-      }, 15);
-    },
-    resetGravitySpeed() {
-      clearInterval(this.gravityInterval);
-      this.applyGravity();
-    },
-    stopMoving() {
-      clearInterval(this.moveInterval);
-      this.currentGravitySpeed = this.initialGravitySpeed; // Reset gravity speed when user stops moving
-      this.applyGravity(); // Reapply gravity when user stops moving
-    },
+//     moveFish() {
+//       this.fishInterval = setInterval(() => {
+//       this.fishY += (Math.random() - 0.5) * 200;
+//       if (this.fishY < 0) this.fishY = 0;
+//       if (this.fishY > 450) this.fishY = 450;
+//       }, 50); // Reduced interval time for faster movement
+//     },
+//     changeFishSpeed() {
+//       this.speedChangeInterval = setInterval(() => {
+//         clearInterval(this.fishInterval);
+//         const newSpeed = Math.random() * 100;
+//         const fastMove = Math.random() < 0.2;
+//         if (fastMove) {
+//           this.fishInterval = setInterval(() => {
+//             this.fishY = Math.random() * 400;
+//           }, 400);
+//         } else {
+//           this.fishInterval = setInterval(() => {
+//             this.fishY += (Math.random() - 0.5) * 20;
+//             if (this.fishY < 0) this.fishY = 0;
+//             if (this.fishY > 450) this.fishY = 450;
+//           }, newSpeed);
+//         }
+//       }, 500);
+//     },
+//     startMovingUp() {
+//       this.currentGravitySpeed = 0;
+//       clearInterval(this.gravityInterval); // Stop gravity when user starts moving up
+//       let speed = 1.5;
+//       this.moveInterval = setInterval(() => {
+//       this.greenBarY -= speed;
+//       if (this.greenBarY < 0) this.greenBarY = 0;
+//       speed += 0.1; // Increase speed over time
+//       }, 15);
+//     },
+//     applyGravity() {
+//   clearInterval(this.moveInterval); // หยุดการเคลื่อนที่จากปุ่ม
+//   this.gravityInterval = setInterval(() => {
+//     this.greenBarY += 2; // ให้แถบสีเขียวลดลง
+
+//     if (this.greenBarY > 400) {
+//       this.greenBarY = 400; // หยุดที่ตำแหน่งสุดท้ายที่ 400
+//       clearInterval(this.gravityInterval); // หยุด gravity เมื่อถึงตำแหน่งสุดท้าย
+//     }
+
+//     // หากต้องการให้ currentGravitySpeed เป็นค่าคงที่
+//     // เช่น ค่าคงที่ 1.5
+//     this.currentGravitySpeed = 1.5; // ใช้ค่า Gravity Speed คงที่
+//   }, 15);
+// },
+//     resetGravitySpeed() {
+//       clearInterval(this.gravityInterval);
+//       this.applyGravity();
+//     },
+//     stopMoving() {
+//       clearInterval(this.moveInterval);
+//       this.currentGravitySpeed = 0; // Reset gravity speed when user stops moving
+//       this.applyGravity(); // Reapply gravity when user stops moving
+//     },
+
+
+
+
+
+moveFish() {
+  this.fishInterval = setInterval(() => {
+    // เคลื่อนที่ปลาในแนว Y โดยใช้การสุ่มเพียงเล็กน้อย
+    this.fishY += (Math.random() - 0.5) * 2; // เคลื่อนที่แบบสุ่มน้อย
+    if (this.fishY < 0) this.fishY = 0;
+    if (this.fishY > 450) this.fishY = 450;
+  }, 15); // ใช้ 15ms สำหรับการอัพเดตตำแหน่งปลา
+},
+
+startMovingUp() {
+  this.currentGravitySpeed = 0;
+  clearInterval(this.gravityInterval); // หยุดการตกจากแรงโน้มถ่วงเมื่อเริ่มเคลื่อนที่ขึ้น
+  let speed = 2; // ใช้ความเร็วคงที่ในการขึ้น
+  this.moveInterval = setInterval(() => {
+    this.greenBarY -= speed;
+    if (this.greenBarY < 0) this.greenBarY = 0; // หยุดเมื่อถึงขอบบน
+  }, 15); // เคลื่อนที่ขึ้นทุก 15ms
+},
+
+applyGravity() {
+  clearInterval(this.moveInterval); // หยุดการเคลื่อนที่จากปุ่ม
+  this.gravityInterval = setInterval(() => {
+    this.greenBarY += 2; // ใช้ความเร็วการตกลง 2 ทุกๆ 15ms
+
+    if (this.greenBarY > 400) {
+      this.greenBarY = 400; // หยุดที่ตำแหน่งสุดท้ายที่ 400
+      clearInterval(this.gravityInterval); // หยุด gravity เมื่อถึงตำแหน่งสุดท้าย
+    }
+  }, 15); // เคลื่อนที่ลงทุก 15ms
+},
+
+resetGravitySpeed() {
+  clearInterval(this.gravityInterval);
+  this.applyGravity(); // รีเซ็ต gravity เมื่อผู้ใช้หยุดการเคลื่อนที่
+},
+
+stopMoving() {
+  clearInterval(this.moveInterval);
+  this.currentGravitySpeed = 0; // รีเซ็ต gravity speed เมื่อผู้ใช้หยุด
+  this.applyGravity(); // เริ่ม gravity ใหม่เมื่อหยุดเคลื่อนที่
+},
+
+
+
+
     updateProgress() {
     this.progressInterval = setInterval(() => {
       const fishTop = this.fishY;
       const fishBottom = this.fishY + 20; // Assuming the fish height is 50px
       const greenBarTop = this.greenBarY;
-      const greenBarBottom = this.greenBarY + 200; // Assuming the green bar height is 200px
+      const greenBarBottom = this.greenBarY + 100; // Assuming the green bar height is 200px
 
       if (fishBottom > greenBarTop && fishTop < greenBarBottom) {
         this.progress += 1;

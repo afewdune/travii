@@ -88,4 +88,39 @@ class RodController extends Controller
 
         return redirect()->route('admin.rods.index')->with('success', 'Rod deleted successfully.');
     }
+
+    public function buyRod(Request $request)
+{
+    $user = Auth::user();
+    $rodId = $request->input('rod_id');
+
+    // ตรวจสอบว่าเบ็ดตกปลามีอยู่จริง
+    $rod = Rod::find($rodId);
+    if (!$rod) {
+        return response()->json(['error' => 'Rod not found'], 404);
+    }
+
+    // ตรวจสอบว่า user มีเบ็ดนี้อยู่แล้ว
+    if ($user->rod_id === $rodId) {
+        return response()->json(['error' => 'You already own this rod'], 400);
+    }
+
+    // ตรวจสอบว่า user มีเงินเพียงพอ
+    if ($user->coin < $rod->price) {
+        return response()->json(['error' => 'Not enough coins'], 400);
+    }
+
+    // หักเงินและบันทึกการซื้อ
+    $user->coin -= $rod->price;
+    $user->rod_id = $rodId; // ตั้งค่าเบ็ดตกปลาใหม่
+    $user->save();
+
+    // บันทึกการซื้อในตาราง rod_purchases
+    RodPurchase::create([
+        'user_id' => $user->id,
+        'rod_id' => $rodId,
+    ]);
+
+    return response()->json(['message' => 'Rod purchased successfully', 'user' => $user]);
+}
 }

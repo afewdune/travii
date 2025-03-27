@@ -8,11 +8,11 @@
 </head>
 
 @vite(['resources/css/app.scss','resources/js/app.js'])
-<body>
+<body id="leaderboardBG">
 
     <div id="app">
         <leaderboard-component 
-            :user="{{ json_encode(Auth::user()) }}" 
+            :user="{{ json_encode(Auth::user()) }}"
             :leaderboard="{{ json_encode($leaderboard) }}">
         </leaderboard-component>
     </div>

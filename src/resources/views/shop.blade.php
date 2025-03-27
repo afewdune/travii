@@ -6,12 +6,14 @@
     <title>Shop</title>
     @vite(['resources/css/app.scss','resources/js/app.js'])
 </head>
-<body id="traviiBG">
+<body id="shopBG">
     <div id="app">
         <shop-component 
             :user="{{ json_encode(Auth::user()) }}"
             :rods="{{ json_encode($rods) }}">
         </shop-component>
     </div>
+    <effect></effect>
 </body>
+
 </html>

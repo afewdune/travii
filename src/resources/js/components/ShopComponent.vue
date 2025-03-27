@@ -27,9 +27,9 @@
       </header>
 
   <div class="container mt-5">
-    <h1>Fishing Rod Shop</h1>
+    <div class="title">ร้านค้า</div>
     <div class="row">
-      <div class="col-md-4 mb-4" v-for="rod in rods.data" :key="rod.id">
+      <div class="col-md-3 mb-4" v-for="rod in rods.data" :key="rod.id">
         <div class="card">
           <img :src="`/storage/${rod.image}`" class="card-img-top" :alt="rod.name">
           <div class="card-body">

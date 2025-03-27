@@ -27,9 +27,9 @@
       </header>
 
     </div>
-
+    <div class="title">ถังเก็บปลา</div>
         <div class="container mt-5" id="traviiStorageScroll">
-            <h1>ถังเก็บปลา</h1>
+            
             <!-- {{ localUser.coin }} -->
             <div class="row">
                 <inventory-component v-for="fish in groupedFish" :key="fish.FishID" :fish="fish"></inventory-component>

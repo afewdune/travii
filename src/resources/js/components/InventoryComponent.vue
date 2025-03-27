@@ -126,7 +126,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(206, 255, 178, 0.9), rgba(255, 255, 255, 0.9) 34.94%, rgba(78, 143, 255, 0.9));
+  background: linear-gradient(rgba(206, 255, 178, 0.5), rgba(255, 255, 255, 0.5) 34.94%, rgba(78, 143, 255, 0.5));
 }
 .modal-content {
   background-color: white;

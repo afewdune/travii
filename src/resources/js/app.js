@@ -56,6 +56,9 @@ app.component('leaderboard-component', LeaderBoardComponent);
 import ShopComponent from './components/ShopComponent.vue';
 app.component('shop-component', ShopComponent);
 
+import BubbleComponent from './components/bubble.vue';
+app.component('bubble-component', BubbleComponent);
+
 app.use(router);
 app.use(Toast);
 

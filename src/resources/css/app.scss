@@ -321,6 +321,14 @@ background: linear-gradient(180deg, #FEFFB2 0%, #FFF 34.94%, #FF4ECA 100%);
     background: linear-gradient(180deg, #ceffb2 0%, #FFF 34.94%, #4e8fff 100%);
 }
 
+#shopBG{
+    background: linear-gradient(#ffefb2, #fff 34.94%, #ba76ff);
+}
+
+#leaderboardBG{
+    background: linear-gradient(#f6b2ff, #fff 34.94%, #ffb44e);
+}
+
 #dc1{
     width: 864px;
     height: 864px;
@@ -484,4 +492,29 @@ box-shadow: 0 0 0px 1px inset #ddd;
 
 .fish-card.SPECIAL{
     background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), linear-gradient(56deg, #A2FFFF 0%, #FFF 100%);
+}
+
+.title{
+    position: absolute;
+top: 0;
+left: 0;
+right: 0;
+background: #fff;
+width: fit-content;
+margin: auto;
+font-size: 28px;
+padding: 12px 70px;
+border: 1px solid #ddd;
+border-radius: 0 0 10px 10px;
+animation: slideDown .5s forwards;
+}
+
+
+@keyframes slideDown {
+    from {
+        top: -20%;
+    }
+    to {
+        top: 0;
+    }
 }
