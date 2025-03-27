@@ -16,7 +16,7 @@
               <li><div v-if="localUser && localUser.role === 'admin'" @click="navigateTo('/admin')" class="">เข้าหลังบ้าน</div></li>
               <!-- <li><div v-if="localUser" @click="navigateTo('/leaderboard')">Leader Board</div></li> -->
             </ul></div>
-            <div class="coin"><img src="/storage/assets/coin.png" width="24"> {{ user.coin }}</div>
+            <div class="coin"><img src="/storage/assets/coin.png" width="24"> {{ user ? user.coin : '0' }}</div>
           </div>
         </div>
       </header>
