@@ -62,8 +62,8 @@
     <div v-if="showRodModal" class="rod-modal">
       <div class="modal-content">
       <h3>เลือกเบ็ดตกปลา</h3>
-          <div v-if="user.rods && user.rods.length > 0">
-            <div class="rod-item" v-for="rod in user.rods" :key="rod.id" @click="selectRod(rod)">
+          <div v-if="rodData">
+            <div class="rod-item" v-for="rod in rodData" :key="rod.id" @click="selectRod(rod)">
             <img :src="`/storage/${rod.image}`" :alt="rod.name" />
             <p>{{ rod.name }}</p>
             </div>
@@ -74,9 +74,9 @@
           </div>
       <button @click="closeRodModal" class="close-btn">ปิด</button>
       </div>
-      </div>
+    </div>
 
-      <bubble-component></bubble-component>
+    <bubble-component></bubble-component>
 
     <div id="dc1"></div>
     <button @click="startFishing" id="fishingBtn">เริ่ม<b>ตกปลา</b></button>
@@ -87,6 +87,9 @@
 import axios from 'axios';
 
 export default {
+  props: {
+    
+  },
   data() {
     return {
       status: 'idle',
@@ -106,6 +109,7 @@ export default {
       initialGravitySpeed: 0.5,
       user: {},
       showRodModal: false,
+      rodData: null,
     };
   },
   watch: {
@@ -127,6 +131,24 @@ export default {
     },
   },
   methods: {
+    async selectRod() {
+      
+    },
+
+    async showRodSelection() {
+      try {
+        this.showRodModal = true;
+        const response = await axios.get("/api/rods/switch");
+        
+        if (!response.data) throw new Error("Failed to switch rods");
+
+        const data = await response.data;
+        this.rodData = data;
+      } catch (error) {
+        console.error("Error fetching rod data:", error);
+      }
+    },
+
     startFishing() {
       this.status = 'waiting';
       this.countdown = 1; // Math.floor(Math.random() * 15) + 10;

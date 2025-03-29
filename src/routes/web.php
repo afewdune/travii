@@ -75,3 +75,4 @@ Route::get('/api/leaderboard', [LeaderBoardController::class, 'index'])->name('l
 
 Route::get('/shop', [ShopController::class, 'index'])->middleware('auth');
 Route::post('/api/rods/buy', [ShopController::class, 'buyRod'])->middleware('auth');
+Route::get('/api/rods/switch', [ShopController::class, 'switchRod'])->middleware('auth');

@@ -13,7 +13,7 @@ class ShopController extends Controller
     public function index()
     {
         $rods = Rod::paginate(10);
-
+        
         return view('shop', ['rods' => $rods]);
     }
 
@@ -45,5 +45,16 @@ class ShopController extends Controller
         ]);
 
         return response()->json(['message' => 'Rod purchased successfully', 'user' => $user]);
+    }
+
+    public function switchRod(Request $request)
+    {
+        // $current_rod = $request->input('rod_id');
+
+        $all_user_rod = RodPurchase::join('rods', 'rods.id', '=', 'rod_purchases.rod_id')
+                                    ->where('rod_purchases.user_id', Auth::user()->id)
+                                    ->get();
+
+        return $all_user_rod;
     }
 }
