@@ -34,6 +34,8 @@
             <div class="row">
                 <inventory-component v-for="fish in groupedFish" :key="fish.FishID" :fish="fish"></inventory-component>
             </div>
+
+            <div style="height: 200px;"></div>
         </div>
     </div>
 </template>

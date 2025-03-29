@@ -35,10 +35,14 @@
           <div class="card-body">
             <h5 class="card-title">{{ rod.name }}</h5>
             <p class="card-text"><img src="/storage/assets/coin.png" width="24"> {{ rod.price }}</p>
-            <button class="btn btn-primary w-100" @click="buyRod(rod)" :disabled="user.coin < rod.price"> 
-              <span v-if="user.coin >= rod.price">ซื้อ</span>
+            <button 
+              class="btn btn-primary w-100" 
+              @click="buyRod(rod)" 
+              :disabled="user.coin < rod.price || ownedRodIds.includes(rod.id)"> 
+              <span v-if="ownedRodIds.includes(rod.id)">คุณมีเบ็ดนี้อยู่แล้ว</span>
+              <span v-else-if="user.coin >= rod.price">ซื้อ</span>
               <span v-else>คริสตัลไม่เพียงพอ</span>
-             </button>
+            </button>
           </div>
         </div>
       </div>
@@ -57,39 +61,48 @@ export default {
   props: {
     user: {
       type: Object,
-      required: true
+      required: true,
     },
     rods: {
-      type: Object,
-      required: true
-    }
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
-      // rods: [],
+      ownedRodIds: [],
     };
   },
-  created() {
-    // this.fetchRods();
-  },
   methods: {
-    // fetchRods() {
-    //   axios.get('/api/rods').then(response => {
-    //     this.rods = response.data;
-    //   });
-    //   console.log(this.rods)
-    // },
+    async fetchUserOwnedRods() {
+      try {
+        const response = await axios.get('/api/user-owned-rods');
+        this.ownedRodIds = response.data.ownedRods;
+        console.log('Owned Rod IDs:', this.ownedRodIds);
+      } catch (error) {
+        console.error('Error fetching owned rods:', error);
+      }
+    },
     buyRod(rod) {
+      if (this.ownedRodIds.includes(rod.id)) {
+        alert('คุณมีเบ็ดนี้อยู่แล้ว!');
+        return;
+      }
+
       axios.post('/api/rods/buy', { rod_id: rod.id })
         .then(response => {
           alert(response.data.message);
           this.$emit('update-user', response.data.user);
+          this.fetchUserOwnedRods(); // อัปเดตข้อมูลเบ็ดที่ผู้ใช้มี
         })
         .catch(error => {
           alert(error.response.data.error || 'An error occurred');
         });
-    }
-  }
+    },
+  },
+  created() {
+    this.fetchUserOwnedRods(); // เรียก API เมื่อคอมโพเนนต์ถูกสร้าง
+  },
 };
 </script>
 

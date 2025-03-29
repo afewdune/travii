@@ -457,10 +457,16 @@ background: linear-gradient(180deg, #FEFFB2 0%, #FFF 34.94%, #FF4ECA 100%);
     }
 }
 
-#traviiStorageScroll{
-    height: calc(100vh - 250px);
-overflow-y: scroll;
--webkit-mask-image: linear-gradient(black 80%,transparent);
+#traviiStorageScroll {
+    height: calc(100vh - 130px);
+    overflow-y: scroll;
+    -webkit-mask-image: linear-gradient(black 80%, transparent);
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+#traviiStorageScroll::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
 }
 
 .fish-count{
@@ -579,4 +585,17 @@ animation: slideDown .5s forwards;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#loginBG{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0.4;
+    height: 100vh;
+    background: #fff;
+    position: relative;
+    z-index: 99999;
+    max-width: 100%;
+    margin: auto !important;
 }

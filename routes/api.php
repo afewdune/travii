@@ -8,6 +8,7 @@ use App\Http\Controllers\FishRecordController;
 use App\Http\Controllers\FishController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SelectedRodController;
+use App\Http\Controllers\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,5 @@ Route::middleware(['auth:sanctum', 'throttle:1000,1'])->get('/fish', [FishContro
 Route::get('/api/rods', [RodController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/selected-rod', [SelectedRodController::class, 'getSelectedRod']);
 Route::middleware('auth:sanctum')->get('/user-rods', [SelectedRodController::class, 'getUserRods']);
+
+Route::middleware('auth:sanctum')->get('/user-owned-rods', [ShopController::class, 'getUserOwnedRods']);
