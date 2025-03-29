@@ -541,3 +541,42 @@ animation: slideDown .5s forwards;
         top: 0;
     }
 }
+
+#fishTank{
+    display: flex;
+    justify-content: center;
+    border: 1px solid #DDD;
+    background: linear-gradient(0deg, #DCFFFF 0%, rgba(255, 255, 255, 1) 100%);
+    width: 850px;
+    height: 252px;
+    flex-shrink: 0;
+    margin: 50px auto;
+    position: relative;
+}
+
+#fishTank::before{
+    content: '';
+    position: absolute;
+    top: -15px;
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+    height: 15px;
+    background: #D9D9D9;
+}
+
+#fishTank::after{
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    height: 10px;
+    background: #D9D9D9;
+}
+
+#fishBox{
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

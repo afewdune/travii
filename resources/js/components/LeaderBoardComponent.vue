@@ -29,32 +29,28 @@
 
     <div class="title">ตารางอันดับ</div>
 
-    <div class="container mt-5">
+    <div class="container mt-5" id="traviiStorageScroll">
       <div style="height: 70vh;
                   overflow-y: auto;
                   position: relative;">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>อันดับ</th>
-            <th>Player Name</th>
-            <th>Total Worth</th>
-            <th>Top 3 Fish</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(player, index) in leaderboard" :key="index">
-            <td>{{ index + 1 }}</td>
-            <td>{{ player.name }}</td>
-            <td>{{ player.total_worth }}</td>
-            <td>
-              <ul>
-                <li v-for="fish in player.top_fish" :key="fish.FishID"> <img :src="`/storage/${fish.FishImage}`" width="50">  {{ fish.FishName }} ({{ fish.FishWorth }})</li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      
+          <div style="display: flex; flex-direction: column; gap: 80px;">
+            <div v-for="(player, index) in leaderboard" :key="index">
+                <div class="top-player" :class="'rank-' + (index + 1)">
+                  <span style="opacity: 0.7;">อันดับ {{ index + 1 }}</span>
+                  <h1>{{ player.name }}</h1>
+                  <p><img src="/storage/assets/coin.png" width="24"> {{ player.total_worth }}</p>
+                  <div id="fishTank">
+                  <div v-for="fish in player.top_fish" :key="fish.FishID" id="fishBox">
+                    <div style=""><img :src="`/storage/${fish.FishImage}`" width="200"></div>
+                    <!-- <h4>{{ fish.FishName }}</h4>
+                    <p><img src="/storage/assets/coin.png" width="24"> {{ fish.FishWorth }}</p> -->
+                  </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        
     </div>
     </div>
   </div>

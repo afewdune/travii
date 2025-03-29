@@ -34,8 +34,11 @@
           <img :src="`/storage/${rod.image}`" class="card-img-top" :alt="rod.name">
           <div class="card-body">
             <h5 class="card-title">{{ rod.name }}</h5>
-            <p class="card-text">Price: {{ rod.price }} coins</p>
-            <button class="btn btn-primary" @click="buyRod(rod)" :disabled="user.coin < rod.price">Buy</button>
+            <p class="card-text"><img src="/storage/assets/coin.png" width="24"> {{ rod.price }}</p>
+            <button class="btn btn-primary w-100" @click="buyRod(rod)" :disabled="user.coin < rod.price"> 
+              <span v-if="user.coin >= rod.price">ซื้อ</span>
+              <span v-else>คริสตัลไม่เพียงพอ</span>
+             </button>
           </div>
         </div>
       </div>

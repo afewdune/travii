@@ -61,7 +61,7 @@
 
 
   <div class="rod">
-    
+
     <!-- แสดงเบ็ดที่เลือก -->
     <div v-if="selectedRod">
       <h3>เบ็ดตกปลาที่เลือก</h3>
@@ -186,7 +186,7 @@ export default {
 
     startFishing() {
       this.status = 'waiting';
-      this.countdown = 1;//Math.floor(Math.random() * 15) + 10;
+      this.countdown = Math.floor(Math.random() * 15) + 10;
       this.fishName = '';
       this.fishImage = '';
       this.fishRarity = '';
@@ -266,7 +266,7 @@ updateProgress() {
     const greenBarBottom = this.greenBarY + 100; // Assuming the green bar height is 200px
 
     if (fishBottom > greenBarTop && fishTop < greenBarBottom) {
-      this.progress += 100;
+      this.progress += 1;
     } else if (this.immortalTime <= 0) {
       this.progress -= 1;
     }
@@ -282,53 +282,83 @@ updateProgress() {
     }
   }, 80);
 },
-    async catchFish() {
+    // async catchFish() {
+    //   clearInterval(this.fishInterval);
+    //   clearInterval(this.progressInterval);
+    //   clearInterval(this.gravityInterval);
+    //   clearInterval(this.speedChangeInterval);
+    //   this.stopMoving();
+
+    //   try {
+    //     const selectedRod = this.user.selectedRod;
+    //     if (!selectedRod) {
+    //       console.error('No fishing rod selected.');
+    //       this.failSkillCheck();
+    //       return;
+    //     }
+
+    //     // โอกาสของแต่ละ rarity จาก selectedRod
+    //     const rarityChances = {
+    //       common: selectedRod.chance_common || 50,
+    //       rare: selectedRod.chance_rare || 30,
+    //       SSR: selectedRod.chance_ssr || 15,
+    //       special: selectedRod.chance_special || 5,
+    //     };
+
+    //     // สุ่มหา rarity โดยใช้โอกาส
+    //     const rarity = this.getRandomRarity(rarityChances);
+
+    //     // ดึงข้อมูลปลาจาก API โดยระบุ rarity
+    //     const response = await axios.get(`/api/fish/random?rarity=${rarity}`);
+    //     if (response.data && response.data.FishName && response.data.FishImage && response.data.FishRarity) {
+    //       this.fishName = response.data.FishName;
+    //       this.fishImage = `/storage/${response.data.FishImage}`;
+    //       this.fishRarity = response.data.FishRarity;
+    //       this.status = 'caught';
+
+    //       // บันทึกข้อมูลการตกปลา
+    //       await axios.post('/api/fish/record', {
+    //         fish_id: response.data.FishID,
+    //       });
+    //       console.log('Fish record saved successfully');
+    //     } else {
+    //       console.error('Invalid response data:', response.data);
+    //       this.failSkillCheck();
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching fish data:', error);
+    //     this.failSkillCheck();
+    //   }
+    // },
+
+    catchFish() {
       clearInterval(this.fishInterval);
       clearInterval(this.progressInterval);
       clearInterval(this.gravityInterval);
       clearInterval(this.speedChangeInterval);
       this.stopMoving();
-
-      try {
-        const selectedRod = this.user.selectedRod;
-        if (!selectedRod) {
-          console.error('No fishing rod selected.');
-          this.failSkillCheck();
-          return;
-        }
-
-        // โอกาสของแต่ละ rarity จาก selectedRod
-        const rarityChances = {
-          common: selectedRod.chance_common || 50,
-          rare: selectedRod.chance_rare || 30,
-          SSR: selectedRod.chance_ssr || 15,
-          special: selectedRod.chance_special || 5,
-        };
-
-        // สุ่มหา rarity โดยใช้โอกาส
-        const rarity = this.getRandomRarity(rarityChances);
-
-        // ดึงข้อมูลปลาจาก API โดยระบุ rarity
-        const response = await axios.get(`/api/fish/random?rarity=${rarity}`);
+      axios.get('/api/fish/random').then(response => {
         if (response.data && response.data.FishName && response.data.FishImage && response.data.FishRarity) {
           this.fishName = response.data.FishName;
           this.fishImage = `/storage/${response.data.FishImage}`;
           this.fishRarity = response.data.FishRarity;
           this.status = 'caught';
-
           // บันทึกข้อมูลการตกปลา
-          await axios.post('/api/fish/record', {
+          axios.post('/api/fish/record', {
             fish_id: response.data.FishID,
+          }).then(() => {
+            console.log('Fish record saved successfully');
+          }).catch(error => {
+            console.error('Error saving fish record:', error);
           });
-          console.log('Fish record saved successfully');
         } else {
           console.error('Invalid response data:', response.data);
           this.failSkillCheck();
         }
-      } catch (error) {
+      }).catch(error => {
         console.error('Error fetching fish data:', error);
         this.failSkillCheck();
-      }
+      });
     },
 
     getRandomRarity(rarityChances) {
