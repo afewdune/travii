@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FishRecordController;
 use App\Http\Controllers\FishController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SelectedRodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,5 @@ Route::middleware(['auth:sanctum', 'throttle:1000,1'])->get('/admin', [AdminCont
 Route::middleware(['auth:sanctum', 'throttle:1000,1'])->get('/fish', [FishController::class, 'index']);
 
 Route::get('/api/rods', [RodController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/selected-rod', [SelectedRodController::class, 'getSelectedRod']);
+Route::middleware('auth:sanctum')->get('/user-rods', [SelectedRodController::class, 'getUserRods']);

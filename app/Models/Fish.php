@@ -9,9 +9,14 @@ class Fish extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'FishID'; // ระบุคอลัมน์หลักที่ถูกต้อง
+    protected $primaryKey = 'FishID'; 
 
     protected $fillable = [
-        'FishID', 'FishName', 'FishImage', 'FishRarity', 'FishWorth', 'FishTokenWorth'
+        'FishID', 
+        'FishName', 
+        'FishImage', 
+        'FishRarity', 
+        'FishWorth', 
+        'FishTokenWorth'
     ];
 }

@@ -25,7 +25,7 @@
 
     <div class="home container mt-5">
       <div v-if="localUser">
-        <fishing-panic-component @status-change="handleStatusChange"></fishing-panic-component>
+        <fishing-panic-component @status-change="handleStatusChange" :selectedRod="selectedRod" :ownedRods="ownedRods"></fishing-panic-component>
         <!-- <inventory-component v-for="fish in fishList" :key="fish.FishID" :fish="fish" @update-user="updateUser"></inventory-component> -->
       </div>
       <div v-else>
@@ -59,8 +59,8 @@ export default {
   data() {
     return {
       localUser: this.user,
-      // user: {},
-      // fishList: []
+      selectedRod: null,
+      ownedRods: [],
     };
   },
   watch: {
@@ -69,13 +69,7 @@ export default {
     // }
   },
   created() {
-    // axios.get('/api/user').then(response => {
-    //   this.user = response.data;
-    // });
-
-    // axios.get('/api/fish').then(response => {
-    //   this.fishList = response.data;
-    // });
+    this.fetchUserRods();
   },
   methods: {
     async logout() {
@@ -105,6 +99,17 @@ export default {
     },
     updateUser(updatedUser) {
       this.user = updatedUser;
+    },
+    async fetchUserRods() {
+      try {
+        const response = await axios.get('/api/user-rods');
+        this.selectedRod = response.data.selectedRod;
+        this.ownedRods = response.data.ownedRods;
+        console.log('Selected Rod:', this.selectedRod);
+        console.log('Owned Rods:', this.ownedRods);
+      } catch (error) {
+        console.error('Error fetching user rods:', error);
+      }
     }
   }
 };

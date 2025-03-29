@@ -75,20 +75,6 @@ export default {
       required: true
     }
   },
-  // data() {
-  //   return {
-  //     leaderboard: []
-  //   };
-  // },
-  // created() {
-  //   axios.get('/api/leaderboard').then(response => {
-  //     this.leaderboard = response.data;
-
-  //     console.log(this.leaderboard); // ใช้ this.
-  //   }).catch(error => {
-  //     console.error('Error fetching leaderboard:', error);
-  //   });
-  // },
   methods: {
     navigateTo(path) {
       window.location.href = path;
