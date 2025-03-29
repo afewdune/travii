@@ -46,4 +46,21 @@ class ShopController extends Controller
 
         return response()->json(['message' => 'Rod purchased successfully', 'user' => $user]);
     }
+
+    public function getUserOwnedRods()
+{
+    $user = Auth::user();
+
+    if (!$user) {
+        return response()->json(['error' => 'User not authenticated'], 401);
+    }
+
+    // ดึงข้อมูลเบ็ดที่ผู้ใช้มี
+    $ownedRods = RodPurchase::where('user_id', $user->id)
+        ->pluck('rod_id') // ดึงเฉพาะ rod_id
+        ->toArray();
+
+    return response()->json(['ownedRods' => $ownedRods]);
+}
+    
 }

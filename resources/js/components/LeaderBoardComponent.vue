@@ -29,10 +29,8 @@
 
     <div class="title">ตารางอันดับ</div>
 
-    <div class="container mt-5" id="traviiStorageScroll">
-      <div style="height: 70vh;
-                  overflow-y: auto;
-                  position: relative;">
+    <div class="container mt-5">
+      <div id="traviiStorageScroll">
       
           <div style="display: flex; flex-direction: column; gap: 80px;">
             <div v-for="(player, index) in leaderboard" :key="index">
@@ -51,6 +49,7 @@
             </div>
           </div>
         
+         <div style="height: 200px;"></div>
     </div>
     </div>
   </div>
